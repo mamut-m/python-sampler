@@ -5,7 +5,7 @@ setup(
     version='0.1',
     description='Sample data generator for Python',
     keywords='sampler test data generator',
-    url='',
+    url='https://github.com/hyperborea/python-sampler.git',
     author='Sven Perkmann',
     author_email='sven.perkmann@gmail.com',
     license='MIT',
