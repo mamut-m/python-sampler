@@ -1,0 +1,14 @@
+language: python
+python:
+- '2.6'
+- '2.7'
+install: pip install fake-factory
+script: nosetests
+deploy:
+  provider: pypi
+  user: hyperborea
+  password:
+    secure: St0smhRI0RDUWLmjqpHf4jKAJKjNGMvZyFIQ1t6KYMYFgCt500Xrt1uiDIaFaOq1Q3Cw5zD2zzyRAfS4HAf6BVknfL/bu4IBg9SxA+hFk62DUYi442wt5wHzgc04Q+FuccXQp996rNQfDRnIp3FTZygdUQ1rENeOcm4QcQGlHnmcmIWbOOedkfzz6EuRB0FE+4vNdC264MigvMVdMxFozoWnAfiwNIEXtY57AOVVPGEtnauHMADbaqjKcWzW1Ac09hPgSwKTav4bSBMXuv5Junnwu9pMKhWsrjeNJr+k6wfifF4uRtxKtPBPbkNCq2dBj0dKpH7DApNiOS6EiMlf/sPEfv8lnWRFC4n0kB2AubZ+pAlh+zLVOlNlC1jx/XR6KvihsG48M0zZ4jb2YH8VCRJ2ArpmSypxRrmjBRQic2jRYL4DsUiUJwhJVWmMFKvVVor/0WRuqJkpISVt+01bietdaTN7x/HRciF3hxhZFB82tOfB1oKuDfIn4J34bN8x0wU8wwYCjBI0KOrL1ZMQDYMN+tg1KZ8zSMd/eD3jiki7qZJGw5rnVwUr1lZ3/R6gN+LIzrzTGiKcpEFHVqTzO2jHvT+d8f/KNew5jzfNLfL531jij/KGV9CVCj4bD2Ho+CebICrSbH8mnJpv+Z8D0QMgQlaSPb9IF5F9PL0EVjQ=
+  on:
+    tags: true
+    repo: hyperborea/python-sampler

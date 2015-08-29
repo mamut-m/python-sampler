@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='sampler',
-    version='0.1',
+    version='0.1.1',
     description='Sample data generator for Python',
     keywords='sampler test data generator',
     url='https://github.com/hyperborea/python-sampler.git',
