@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/hyperborea/python-sampler.svg)](https://travis-ci.org/hyperborea/python-sampler)
+[![Build Status](https://img.shields.io/pypi/dm/sampler.svg?style=flat)](https://pypi.python.org/pypi/sampler)
+[![Build Status](https://img.shields.io/pypi/l/sampler.svg?style=flat)](https://github.com/hyperborea/python-sampler/blob/master/LICENSE)
+
+
 Sampler
 ===================
 Sample data generator for Python
