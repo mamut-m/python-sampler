@@ -53,7 +53,7 @@ class TestSamplerFields(unittest.TestCase):
 
     def test_date_field_format(self):
         d = date(2000, 1, 1)
-        self.assertField(DateField(d, d, format='%s', transform=int), 946681200)
+        self.assertField(DateField(d, d, format='%s', transform=int), int(d.strftime('%s')))
 
     def test_datetime_field(self):
         min_date = datetime(2015, 1, 1)
