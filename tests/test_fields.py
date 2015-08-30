@@ -1,4 +1,5 @@
 import unittest
+from datetime import datetime, date
 from sampler import *
 
 
@@ -42,3 +43,19 @@ class TestSamplerFields(unittest.TestCase):
         self.assertField(field, 1)
         self.assertField(field, 2)
 
+    def test_date_field_default(self):
+        self.assertField(DateField(), date.today())
+
+    def test_date_field(self):
+        min_date = date(2015, 1, 1)
+        max_date = date(2016, 1, 1)
+        self.assertField(DateField(min_date, max_date), date(2015, 8, 14))
+
+    def test_date_field_format(self):
+        d = date(2000, 1, 1)
+        self.assertField(DateField(d, d, format='%s', transform=int), 946681200)
+
+    def test_datetime_field(self):
+        min_date = datetime(2015, 1, 1)
+        max_date = datetime(2016, 1, 1)
+        self.assertField(DateTimeField(min_date, max_date), datetime(2015, 8, 14, 11, 30, 54))

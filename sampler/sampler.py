@@ -3,7 +3,8 @@ from fields import *
 
 class Sampler(object):
     def __init__(self, **kwargs):
-        self._seed = False
+        self.__seed = False
+        self.__count = (0, 0)
 
         for k, v in kwargs.iteritems():
             if not isinstance(v, Field) and not isinstance(v, Sampler):
@@ -14,17 +15,23 @@ class Sampler(object):
 
 
     def seed(self, seed):
-        self._seed = seed
+        self.__seed = seed
+        return self
+
+    def count(self, minimum, maximum=None):
+        self.__count = (minimum, maximum or minimum)
         return self
 
     def generate(self, count=None):
-        if self._seed:
-            random.seed(self._seed)
+        batchsize = count or random.randint(*self.__count)
 
-        if count is None:
+        if self.__seed:
+            random.seed(self.__seed)
+
+        if not batchsize:
             return self.generate_one()
         else:
-            return [self.generate_one() for i in range(count)]
+            return [self.generate_one() for i in range(batchsize)]
 
     def generate_one(self):
         data = {}

@@ -15,8 +15,11 @@ class TestSampler(unittest.TestCase):
         class G(Sampler):
             field = Field()
 
-        result = G().generate(2)
-        self.assertEqual(len(result), 2)
+        res1 = G().generate(2)
+        res2 = G().count(2).generate()
+
+        self.assertEqual(len(res1), 2)
+        self.assertEqual(res1, res2)
 
     def test_context(self):
         class G(Sampler):
@@ -43,3 +46,21 @@ class TestSampler(unittest.TestCase):
 
         result = G().generate()
         self.assertEqual(result, {'nested': {'field': 1337}})
+
+    def test_nested_list(self):
+        class G(Sampler):
+            nested = Sampler(
+                field = Field(1337)
+            ).count(5)
+
+        result = G().generate()
+        self.assertEqual(len(result['nested']), 5)
+
+    def test_nested_list_random_length(self):
+        class G(Sampler):
+            nested = Sampler(
+                field = Field(1337)
+            ).count(3, 7)
+
+        result = G().generate()
+        self.assertEqual(len(result['nested']), 7)

@@ -1,4 +1,5 @@
 import random
+from datetime import datetime, date, timedelta
 from faker import Factory
 
 
@@ -28,10 +29,7 @@ class Field(object):
         self.value = value
         
     def process(self, context):
-        if hasattr(self.value, '__call__'):
-            return self.value()
-        else:
-            return self.value
+        return hasattr(self.value, '__call__') and self.value() or self.value 
 
 
 class NameField(Field):
@@ -94,3 +92,26 @@ class IncrementField(Field):
     def process(self, context):
         self.idx += 1
         return self.idx
+
+
+class DateTimeField(Field):
+    def setup(self, minimum=None, maximum=None, format=None):
+        self.min = minimum
+        self.max = maximum
+        self.format = format
+
+    def process(self, context):
+        min_dt = self.min or datetime.now()
+        max_dt = self.max or datetime.now()
+
+        delta = int((max_dt - min_dt).total_seconds())
+        random_seconds = random.randint(0, delta)
+        random_dt = min_dt + timedelta(seconds=random_seconds)
+
+        return random_dt.strftime(self.format) if self.format else random_dt
+
+
+class DateField(DateTimeField):
+    def process(self, *args, **kwargs):
+        res = super(DateField, self).process(*args, **kwargs)
+        return res.date() if isinstance(res, datetime) else res
