@@ -13,7 +13,7 @@ Sampler is available through pip, to install it simply:
 
 Basic Usage
 -------------------
-The desired data schema is defined in Python by subclassing the `Sampler` class and adding `Field` instances. Note that you can nest as many `Sampler` instances as you like for form complex data structures.
+The desired data schema is defined in Python by subclassing the `Sampler` class and adding `Field` instances. Note that you can nest as many `Sampler` instances as you like to form complex data structures.
 
 ```python
 from sampler import *
@@ -47,7 +47,7 @@ The above snippet will generate exemplary:
 }
 ```
 
-By default `generate()` will only create one instance, but you can pass a number to return a list of instances instead, e.g. `Person.generate(10)` which is the same as `Person.count(10).generate()`.
+By default `generate()` only creates a single instance, but you can pass a number to return a list of instances instead, e.g. `Person.generate(10)` which is the same as `Person.count(10).generate()`.
 
 If you don't know the number of instances you'd like to create in advance you can also pass two numbers to `count(min, max)` which will randomize the batch size.
 
@@ -62,7 +62,7 @@ class Order(Sampler):
           'Spaceship Superior',
           'Candy Deluxe',
           'Fluffy Ball'
-      ]),
+        ]),
         quantity = ListField(range(1, 15))
     ).count(1, 5)
 
