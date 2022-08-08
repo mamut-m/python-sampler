@@ -1,4 +1,4 @@
-from fields import *
+from .fields import *
 
 
 class Sampler(object):
@@ -6,7 +6,7 @@ class Sampler(object):
         self.__seed = False
         self.__count = (0, 0)
 
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             if not isinstance(v, Field) and not isinstance(v, Sampler):
                 # v = Field(v)
                 getattr(self, k).value = v
@@ -42,7 +42,7 @@ class Sampler(object):
             elif isinstance(obj, Sampler):
                 data[name] = obj.generate()
             
-        return dict([(k, v) for k, v in data.iteritems() if not k.startswith('_')])
+        return dict([(k, v) for k, v in data.items() if not k.startswith('_')])
         
     def get_fields(self):
         for param_name in dir(self):
