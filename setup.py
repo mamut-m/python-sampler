@@ -10,5 +10,5 @@ setup(
     author_email='sven.perkmann@gmail.com',
     license='MIT',
     packages=['sampler'],
-    install_requires=['fake-factory'],
+    install_requires=['Faker'],
 )
