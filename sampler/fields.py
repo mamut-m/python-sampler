@@ -5,37 +5,38 @@ from faker import Factory
 
 fake = Factory.create()
 
+
 class Field(object):
     def __init__(self, *args, **kwargs):
-        self.var = kwargs.pop('var', None)
-        self.transform = kwargs.pop('transform', lambda x: x)
+        self.var = kwargs.pop("var", None)
+        self.transform = kwargs.pop("transform", lambda x: x)
 
         self.setup(*args, **kwargs)
 
     def get(self, context):
         try:
-            return context['_' + self.var]
+            return context["_" + self.var]
 
         except:
             result = self.process(context)
-            result =  self.transform(result)
+            result = self.transform(result)
 
             if self.var:
-                context['_' + self.var] = result
+                context["_" + self.var] = result
 
             return result
 
     def setup(self, value=None):
         self.value = value
-        
+
     def process(self, context):
-        return hasattr(self.value, '__call__') and self.value() or self.value 
+        return hasattr(self.value, "__call__") and self.value() or self.value
 
 
 class NameField(Field):
     def setup(self):
         self.value = fake.name
-        
+
 
 class ListField(Field):
     def setup(self, seq):
@@ -87,7 +88,7 @@ class MapField(CloneField):
 
 class IncrementField(Field):
     def setup(self, start=1):
-        self.idx = start-1
+        self.idx = start - 1
 
     def process(self, context):
         self.idx += 1
