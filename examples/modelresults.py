@@ -8,7 +8,7 @@ class ModelResult(Sampler):
     decision = ListField(['ACCEPT', 'REJECT'])
     decisionTime = Field(var='ts')
     requestTime = Field(var='ts')
-    rejectReason = WeightedListField([
+    rejectReason = WeightedListField([ 
         ('foo', 0.8),
         ('bar', 0.15),
         ('zzz', 0.05),

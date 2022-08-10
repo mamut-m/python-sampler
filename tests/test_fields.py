@@ -1,27 +1,26 @@
 import unittest
 from datetime import datetime, date
 from sampler import *
-from random import Random
 from unittest.mock import patch
 from faker import Faker
+import random
+
 
 class TestSamplerFields(unittest.TestCase):
-    
+
     # this is called before every test
     def setUp(self):
         random.seed(1337)
         # faker uses its own seed
         Faker.seed(4321)
 
-    
     def assertField(self, field, value):
         class G(Sampler):
             pass
-        
-        setattr(G, 'field', field)
-        self.assertEqual(G().generate()['field'], value)
 
-    
+        setattr(G, "field", field)
+        self.assertEqual(G().generate()["field"], value)
+
     def test_default(self):
         self.assertField(Field(), None)
 
@@ -48,7 +47,7 @@ class TestSamplerFields(unittest.TestCase):
         self.assertField(field, "bar")
 
     def test_gaussian_field(self):
-        self.assertField(GaussianField(5, 2),   2.072253837086404 )
+        self.assertField(GaussianField(5, 2), 2.072253837086404)
 
     def test_increment_field(self):
         field = IncrementField()
