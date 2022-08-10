@@ -3,6 +3,10 @@ from sampler import *
 
 
 class TestSampler(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        print("setup")
+        random.seed(1337)
 
     def test_generate(self):
         class G(Sampler):
@@ -63,4 +67,4 @@ class TestSampler(unittest.TestCase):
             ).count(3, 7)
 
         result = G().generate()
-        self.assertEqual(len(result['nested']), 7)
+        self.assertEqual(len(result['nested']), 3)

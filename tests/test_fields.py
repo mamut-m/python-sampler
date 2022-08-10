@@ -1,17 +1,27 @@
 import unittest
 from datetime import datetime, date
 from sampler import *
-
+from random import Random
+from unittest.mock import patch
+from faker import Faker
 
 class TestSamplerFields(unittest.TestCase):
+    
+    # this is called before every test
+    def setUp(self):
+        random.seed(1337)
+        # faker uses its own seed
+        Faker.seed(4321)
+
+    
     def assertField(self, field, value):
         class G(Sampler):
             pass
-
+        
         setattr(G, 'field', field)
-        self.assertEqual(G().seed(1337).generate()['field'], value)
+        self.assertEqual(G().generate()['field'], value)
 
-
+    
     def test_default(self):
         self.assertField(Field(), None)
 
@@ -23,10 +33,10 @@ class TestSamplerFields(unittest.TestCase):
         self.assertField(field, "hello world")
 
     def test_name_field(self):
-        self.assertField(NameField(), "Kinsley Hickle")
+        self.assertField(NameField(), "Jason Brown")
 
     def test_list_field(self):
-        self.assertField(ListField(["foo", "bar"]), "bar")
+        self.assertField(ListField(["foo", "bar"]), "foo")
 
     def test_weighted_list_field(self):
         field = WeightedListField(
@@ -38,7 +48,7 @@ class TestSamplerFields(unittest.TestCase):
         self.assertField(field, "bar")
 
     def test_gaussian_field(self):
-        self.assertField(GaussianField(5, 2), 3.1764934134046747)
+        self.assertField(GaussianField(5, 2),   2.072253837086404 )
 
     def test_increment_field(self):
         field = IncrementField()
@@ -51,7 +61,7 @@ class TestSamplerFields(unittest.TestCase):
     def test_date_field(self):
         min_date = date(2015, 1, 1)
         max_date = date(2016, 1, 1)
-        self.assertField(DateField(min_date, max_date), date(2015, 8, 14))
+        self.assertField(DateField(min_date, max_date), date(2015, 8, 10))
 
     def test_date_field_format(self):
         d = date(2000, 1, 1)
@@ -63,5 +73,5 @@ class TestSamplerFields(unittest.TestCase):
         min_date = datetime(2015, 1, 1)
         max_date = datetime(2016, 1, 1)
         self.assertField(
-            DateTimeField(min_date, max_date), datetime(2015, 8, 14, 11, 30, 54)
+            DateTimeField(min_date, max_date), datetime(2015, 8, 10, 17, 54, 35)
         )
