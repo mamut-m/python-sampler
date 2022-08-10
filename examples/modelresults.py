@@ -23,4 +23,4 @@ class ModelResult(Sampler):
 
 generator = ModelResult(decisionTime=123)
 
-print generator.generate()
+print(generator.generate())

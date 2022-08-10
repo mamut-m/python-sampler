@@ -1,22 +1,16 @@
-from fields import *
+from .fields import *
 
 
-class Sampler(object):
+class Sampler:
     def __init__(self, **kwargs):
-        self.__seed = False
         self.__count = (0, 0)
 
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             if not isinstance(v, Field) and not isinstance(v, Sampler):
                 # v = Field(v)
                 getattr(self, k).value = v
             else:
                 setattr(self, k, v)
-
-
-    def seed(self, seed):
-        self.__seed = seed
-        return self
 
     def count(self, minimum, maximum=None):
         self.__count = (minimum, maximum or minimum)
@@ -24,9 +18,6 @@ class Sampler(object):
 
     def generate(self, count=None):
         batchsize = count or random.randint(*self.__count)
-
-        if self.__seed:
-            random.seed(self.__seed)
 
         if not batchsize:
             return self.generate_one()
@@ -41,9 +32,9 @@ class Sampler(object):
                 data[name] = obj.get(context=data)
             elif isinstance(obj, Sampler):
                 data[name] = obj.generate()
-            
-        return dict([(k, v) for k, v in data.iteritems() if not k.startswith('_')])
-        
+
+        return dict([(k, v) for k, v in data.items() if not k.startswith("_")])
+
     def get_fields(self):
         for param_name in dir(self):
             param_obj = getattr(self, param_name)

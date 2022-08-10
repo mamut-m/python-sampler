@@ -1,1 +1,1 @@
-from sampler import *
+from .sampler import *
